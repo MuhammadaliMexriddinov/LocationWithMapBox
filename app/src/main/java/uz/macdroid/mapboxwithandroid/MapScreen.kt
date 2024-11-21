@@ -19,6 +19,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
             //Android native
             //Kotlin
             //COMMITE
+            //COMMIT2
         }
 
     }
