@@ -1,4 +1,4 @@
-# 1-Kun
+# 1-Kun (21.11-22.11)
 bajarilgan ishlar: mapbox dokumentatsiyasini o`qib chiqdim, token generatsiya qildim, yangi loyiha ochdim va android bilan integratsiya qildim.
 
 <table>
