@@ -16,8 +16,9 @@ class MapScreen : Fragment(R.layout.screen_map) {
         binding.apply {
             //Muhammadali Mexriddinov`s code
             //new code
-            //
-            //
+            //Android native
+            //Kotlin
+            //COMMITE
         }
 
     }
