@@ -1,3 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Voltiva</string>
+    <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">pk.eyJ1IjoibXVoYW1tYWRhbGkxMiIsImEiOiJjbTNya2s5OWEwNW1pMmpxd201YjI5czA1In0.rh5C9MoV-QfLUtVzfBPTFw</string>
 </resources>

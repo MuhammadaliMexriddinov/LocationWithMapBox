@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "uz.macdroid.mapboxwithandroid"
-        minSdk = 24
+        minSdk = 21
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -83,5 +84,11 @@ dependencies {
 
     debugImplementation ("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:4.0.0")
-    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+
+    //MapBox
+    implementation("com.mapbox.maps:android:11.8.0")
+
+    implementation("com.mapbox.maps:android:11.8.0") {
+        exclude(group = "com.google.android.gms", module = "play-services-cronet")
+    }
 }
