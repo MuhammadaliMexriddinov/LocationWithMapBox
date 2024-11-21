@@ -19,6 +19,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS)
+            //Next codes...
 
         }
     }
