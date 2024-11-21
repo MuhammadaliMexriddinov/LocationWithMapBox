@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("kotlin-kapt")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -33,6 +35,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    bundle {
+        language {
+            enableSplit= false
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -42,7 +54,34 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //Lottie animation
+    implementation ("com.airbnb.android:lottie:5.2.0")
+
+    //coroutine
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
+    //fragment ktx
+    implementation ("androidx.fragment:fragment-ktx:1.5.7")
+
+    // reflection-based flavor
+    implementation ("com.github.kirich1409:viewbindingpropertydelegate:1.5.6")
+
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+
+    implementation ("com.google.code.gson:gson:2.9.1")
+
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.3")//Okhttp3
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")//Retrofit2
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")//Retrofit2
+
+    debugImplementation ("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+    implementation ("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 }
