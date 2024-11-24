@@ -9,5 +9,8 @@ bajarilgan ishlar: mapbox dokumentatsiyasini o`qib chiqdim, token generatsiya qi
   </tr>
 </table>
 
+# 2-Kun (23.11.24)
+bajarilgan ishlar: mapbox dokumentatsiyasini o`rganishda davom etdim , LocationComponent , LocationEngine , AnnotationPlugin , PointAnnotation kabi muammolarga duch keldim , bir nechta xatoliklarga dush keldim , hozirda davom etish jarayonidaman....
 
-
+# 3-Kun (24.11.24)
+Yakshanba Kuni , umumxalq dam olish kuni.
