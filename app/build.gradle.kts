@@ -57,6 +57,8 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.core)
+    implementation(libs.play.services.location)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,9 +88,15 @@ dependencies {
     releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
     //MapBox
-    implementation("com.mapbox.maps:android:11.8.0")
+   // implementation("com.mapbox.maps:android:11.8.0")
 
     implementation("com.mapbox.maps:android:11.8.0") {
         exclude(group = "com.google.android.gms", module = "play-services-cronet")
     }
+
+    implementation ("com.mapbox.maps:android:10.15.0") // MapBox Maps SDK
+    implementation ("com.mapbox.navigation:android:2.14.0")
+
+
+
 }
