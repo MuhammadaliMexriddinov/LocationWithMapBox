@@ -1,4 +1,4 @@
-# 1-Kun (21.11-22.11)
+# 1-Kun (22.11.24)
 bajarilgan ishlar: mapbox dokumentatsiyasini o`qib chiqdim, token generatsiya qildim, yangi loyiha ochdim va android bilan integratsiya qildim.
 
 <table>
@@ -9,5 +9,8 @@ bajarilgan ishlar: mapbox dokumentatsiyasini o`qib chiqdim, token generatsiya qi
   </tr>
 </table>
 
+# 2-Kun (23.11.24)
+bajarilgan ishlar: mapbox dokumentatsiyasini o`rganishda davom etdim , LocationComponent , LocationEngine , AnnotationPlugin , PointAnnotation  larni Android bilan implementatsiya jarayoni , bir nechta xatoliklarga duch keldim , hozirda jarayon davom etmoqda...
 
-
+# 3-Kun (24.11.24)
+Yakshanba Kuni , umumxalq dam olish kuni.
