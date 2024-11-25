@@ -95,8 +95,6 @@ dependencies {
     }
 
     implementation ("com.mapbox.maps:android:10.15.0") // MapBox Maps SDK
-    implementation ("com.mapbox.navigation:android:2.14.0")
-
 
 
 }

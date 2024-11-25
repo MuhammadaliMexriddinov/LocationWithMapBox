@@ -1,6 +1,7 @@
 package uz.macdroid.mapboxwithandroid
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -24,7 +25,9 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
         binding.apply {
             lifecycleScope.launch {
                 delay(2000)
-                findNavController().navigate(R.id.mapScreen)
+                //findNavController().navigate(R.id.mapScreen)
+                val intent = Intent(requireContext(), StandardStyleActivity::class.java)
+                startActivity(intent)
             }
         }
 
