@@ -14,3 +14,13 @@ bajarilgan ishlar: mapbox dokumentatsiyasini o`rganishda davom etdim , LocationC
 
 # 3-Kun (24.11.24)
 Yakshanba Kuni , umumxalq dam olish kuni.
+
+# 4-Kun (24.11.24-25.11.24)
+Current location  , OnIndicatorBearingChangedListener lar orqali LocationPuck2D ko`rinishini map da aks ettirdim
+
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/b67219e2-5fe0-42af-85ff-b45bc7ea3e9b" alt="Image 1" width="150"/></td>
+  </tr>
+</table>
+
