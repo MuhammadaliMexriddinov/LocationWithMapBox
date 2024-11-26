@@ -17,6 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        resValue("string", "mapbox_access_token", "sk.eyJ1IjoibXVoYW1tYWRhbGkxMiIsImEiOiJjbTNza2ltYmwwamE2MmpzYzRwb3dvZ3N1In0.FZGyDEhy4S6PcrQfSyvMwQ")
     }
 
     buildTypes {
@@ -95,6 +96,13 @@ dependencies {
     }
 
     implementation ("com.mapbox.maps:android:10.15.0") // MapBox Maps SDK
+    implementation ("com.mapbox.mapboxsdk:mapbox-sdk-turf:6.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1") // Google Location API
+
+
+
+
+
 
 
 }

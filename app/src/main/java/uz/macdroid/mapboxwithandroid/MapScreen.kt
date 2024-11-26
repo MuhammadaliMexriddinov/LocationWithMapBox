@@ -89,7 +89,7 @@ class MapScreen : Fragment(R.layout.screen_map) {
 
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 2004
+        const val LOCATION_PERMISSION_REQUEST_CODE = 2004
     }
 
 }

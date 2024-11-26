@@ -14,7 +14,6 @@ class LocationPermissionHelper(private val activityRef: WeakReference<Activity>)
 
     fun checkPermissions(callback: () -> Unit) {
         val activity = activityRef.get() ?: return
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
             ActivityCompat.checkSelfPermission(
                 activity,
@@ -44,6 +43,9 @@ class LocationPermissionHelper(private val activityRef: WeakReference<Activity>)
             (activity as? PermissionsCallback)?.onPermissionGranted()
         }
     }
+
+
+
 
     interface PermissionsCallback {
         fun onPermissionGranted()
