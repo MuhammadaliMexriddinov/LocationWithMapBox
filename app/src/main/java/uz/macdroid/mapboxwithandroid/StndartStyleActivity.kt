@@ -1,157 +1,174 @@
-package uz.macdroid.mapboxwithandroid
-
-
-import android.Manifest
-import android.content.pm.PackageManager
-import android.health.connect.datatypes.ExerciseRoute
-import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationServices
-import com.mapbox.android.gestures.MoveGestureDetector
-    import com.mapbox.geojson.Feature
-import com.mapbox.geojson.LineString
-import com.mapbox.geojson.FeatureCollection
-import com.mapbox.geojson.Point
-import com.mapbox.maps.CameraOptions
-import com.mapbox.maps.ImageHolder
-import com.mapbox.maps.MapView
-import com.mapbox.maps.Style
-import com.mapbox.maps.extension.style.expressions.generated.Expression.Companion.interpolate
-import com.mapbox.maps.extension.style.layers.addLayer
-import com.mapbox.maps.extension.style.layers.generated.LineLayer
-import com.mapbox.maps.extension.style.layers.generated.SymbolLayer
-import com.mapbox.maps.extension.style.layers.getLayer
-import com.mapbox.maps.extension.style.sources.addSource
-import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
-import com.mapbox.maps.extension.style.sources.getSourceAs
-import com.mapbox.maps.plugin.LocationPuck2D
-import com.mapbox.maps.plugin.PuckBearing
-import com.mapbox.maps.plugin.gestures.OnMoveListener
-import com.mapbox.maps.plugin.gestures.addOnMapClickListener
-import com.mapbox.maps.plugin.gestures.gestures
-import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
-import com.mapbox.maps.plugin.locationcomponent.location
-import com.mapbox.turf.TurfMeasurement
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import uz.macdroid.mapboxwithandroid.MapScreen.Companion.LOCATION_PERMISSION_REQUEST_CODE
-import java.lang.ref.WeakReference
-
-class StandardStyleActivity : AppCompatActivity() {
-    private lateinit var locationPermissionHelper: LocationPermissionHelper
-
-    private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
-        mapView.mapboxMap.setCamera(CameraOptions.Builder().bearing(it).build())
-    }
-
-    private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
-        mapView.mapboxMap.setCamera(CameraOptions.Builder().center(it).build())
-        mapView.gestures.focalPoint = mapView.mapboxMap.pixelForCoordinate(it)
-    }
-
-    private val onMoveListener = object : OnMoveListener {
-        override fun onMoveBegin(detector: MoveGestureDetector) {
-            onCameraTrackingDismissed()
-        }
-
-        override fun onMove(detector: MoveGestureDetector): Boolean {
-            return false
-        }
-
-        override fun onMoveEnd(detector: MoveGestureDetector) {}
-    }
-    private lateinit var mapView: MapView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mapView = MapView(this)
-        setContentView(mapView)
-        locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
-        locationPermissionHelper.checkPermissions {
-            onMapReady()
-        }
-    }
-
-    private fun onMapReady() {
-        mapView.mapboxMap.setCamera(
-            CameraOptions.Builder()
-                .zoom(14.0)
-                .build()
-        )
-        mapView.mapboxMap.loadStyle(
-            Style.STANDARD
-        ) {
-            initLocationComponent()
-            setupGesturesListener()
-        }
-
-    }
-
-    private fun setupGesturesListener() {
-        mapView.gestures.addOnMoveListener(onMoveListener)
-    }
-
-    private fun initLocationComponent() {
-        val locationComponentPlugin = mapView.location
-        locationComponentPlugin.updateSettings {
-            puckBearing = PuckBearing.COURSE
-            puckBearingEnabled = true
-            enabled = true
-            locationPuck = LocationPuck2D(
-                bearingImage = ImageHolder.from(R.drawable.currentlocation),
-                shadowImage = ImageHolder.from(R.drawable.currentlocation),
-                scaleExpression = interpolate {
-                    linear()
-                    zoom()
-                    stop {
-                        literal(0.0)
-                        literal(0.6)
-                    }
-                    stop {
-                        literal(20.0)
-                        literal(1.0)
-                    }
-                }.toJson()
-            )
-        }
-        locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
-    }
-
-    private fun onCameraTrackingDismissed() {
-        Toast.makeText(this, "onCameraTrackingDismissed", Toast.LENGTH_SHORT).show()
-        mapView.location
-            .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        mapView.location
-            .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
-        mapView.gestures.removeOnMoveListener(onMoveListener)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.location
-            .removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
-        mapView.location
-            .removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-        mapView.gestures.removeOnMoveListener(onMoveListener)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        locationPermissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-
-}
-
-
+//package uz.macdroid.mapboxwithandroid
+//
+//import android.content.pm.PackageManager
+//import android.graphics.Color
+//import android.location.Location
+//import android.os.Bundle
+//import android.telecom.Call
+//import android.widget.Toast
+//import androidx.appcompat.app.AppCompatActivity
+//import androidx.core.app.ActivityCompat
+//import androidx.core.content.ContextCompat
+//import com.google.android.gms.common.api.Response
+//import com.google.android.gms.location.LocationServices
+//import com.mapbox.geojson.Feature
+//import com.mapbox.geojson.LineString
+//import com.mapbox.geojson.Point
+//import com.mapbox.maps.CameraOptions
+//import com.mapbox.maps.MapView
+//import com.mapbox.maps.Style
+//import com.mapbox.maps.extension.style.layers.addLayer
+//import com.mapbox.maps.extension.style.layers.generated.LineLayer
+//import com.mapbox.maps.extension.style.layers.generated.SymbolLayer
+//import com.mapbox.maps.extension.style.layers.getLayer
+//import com.mapbox.maps.extension.style.sources.addSource
+//import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
+//import com.mapbox.maps.extension.style.sources.getSourceAs
+//import com.mapbox.maps.plugin.gestures.addOnMapClickListener
+//import com.mapbox.turf.TurfMeasurement
+//import java.lang.ref.WeakReference
+//
+//
+//class StndartStyleActivity : AppCompatActivity() {
+//    private lateinit var mapView: MapView
+//    private lateinit var locationPermissionHelper: LocationPermissionHelper
+//    private val points = listOf(
+//        Point.fromLngLat(69.2173, 41.3152),
+//        Point.fromLngLat(69.2874, 41.2995),
+//        Point.fromLngLat(69.2475, 41.3111)
+//    )
+//
+//    private val icons = listOf(
+//        R.drawable.firstmark,
+//        R.drawable.secondmark,
+//        R.drawable.thirdmark
+//    )
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_map)
+//        mapView = findViewById(R.id.mapView)
+//
+//        locationPermissionHelper = LocationPermissionHelper(WeakReference(this))
+//        locationPermissionHelper.checkPermissions {
+//            initializeMap()
+//        }
+//    }
+//
+//    private fun initializeMap() {
+//        mapView.getMapboxMap().apply {
+//            loadStyleUri(Style.MAPBOX_STREETS) { style ->
+//                addMarkersToMap(style)
+//                getCurrentLocation {
+//                    setCamera(
+//                        CameraOptions.Builder()
+//                            .center(Point.fromLngLat(it.longitude, it.latitude))
+//                            .zoom(14.0)
+//                            .build()
+//                    )
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun addMarkersToMap(style: Style) {
+//        points.forEachIndexed { index, point ->
+//            val iconDrawable = ContextCompat.getDrawable(this, icons[index])
+//            val bitmap = BitmapUtils.getBitmapFromDrawable(iconDrawable)
+//            bitmap?.let {
+//                style.addImage("marker-$index", it)
+//             //   style.addSource(GeoJsonSource("source-$index", Feature.fromGeometry(point)))
+//                style.addLayer(
+//                    SymbolLayer("layer-$index", "source-$index")
+////                        .withProperties(
+////                            PropertyFactory.iconImage("marker-$index"),
+////                            PropertyFactory.iconSize(1.5f)
+////                        )
+//                )
+//            }
+//        }
+//        setupMapClickListener()
+//    }
+//
+//    private fun setupMapClickListener() {
+//        mapView.getMapboxMap().addOnMapClickListener { point ->
+//            points.forEach { destination ->
+//                if (TurfMeasurement.distance(point, destination) < 0.05) {
+//                    drawRoute(destination)
+//                    return@addOnMapClickListener true
+//                }
+//            }
+//            false
+//        }
+//    }
+//
+//    private fun drawRoute(destination: Point) {
+//        getCurrentLocation { location ->
+//            val origin = Point.fromLngLat(location.longitude, location.latitude)
+//
+//            val client = MapboxDirections.builder()
+//                .origin(origin)
+//                .destination(destination)
+//                .profile(DirectionsCriteria.PROFILE_DRIVING)
+//                .accessToken(getString(R.string.mapbox_access_token))
+//                .build()
+//
+//            client.enqueueCall(object : Callback<DirectionsResponse> {
+//                override fun onResponse(
+//                    call: Call<DirectionsResponse>,
+//                    response: Response<DirectionsResponse>
+//                ) {
+//                    response.body()?.routes()?.firstOrNull()?.let { route ->
+//                        addRouteToMap(route)
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
+//                    Toast.makeText(this@StndartStyleActivity, "Route error: ${t.message}", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+//        }
+//    }
+//
+//    private fun addRouteToMap(route: DirectionsRoute) {
+//        mapView.getMapboxMap().getStyle { style ->
+//            val source = style.getSourceAs<GeoJsonSource>("route-source")
+//                ?: GeoJsonSource("route-source").also { style.addSource(it) }
+//
+//            source.setGeoJson(LineString.fromPolyline(route.geometry()!!, 6))
+//            if (style.getLayer("route-layer") == null) {
+//                style.addLayer(
+//                    LineLayer("route-layer", "route-source").withProperties(
+//                        PropertyFactory.lineColor(Color.RED),
+//                        PropertyFactory.lineWidth(5.0f)
+//                    )
+//                )
+//            }
+//        }
+//    }
+//
+//    private fun getCurrentLocation(callback: (Location) -> Unit) {
+//        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+//            == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+//                if (location != null) {
+//                    callback(location)
+//                }
+//            }
+//        } else {
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+//                LOCATION_PERMISSION_REQUEST_CODE
+//            )
+//        }
+//    }
+//
+//    companion object {
+//        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
+//    }
+//}
+//
+//

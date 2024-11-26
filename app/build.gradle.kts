@@ -95,9 +95,23 @@ dependencies {
         exclude(group = "com.google.android.gms", module = "play-services-cronet")
     }
 
-    implementation ("com.mapbox.maps:android:10.15.0") // MapBox Maps SDK
+    implementation ("com.mapbox.maps:android:10.0.0") // MapBox Maps SDK
     implementation ("com.mapbox.mapboxsdk:mapbox-sdk-turf:6.1.0")
     implementation ("com.google.android.gms:play-services-location:21.0.1") // Google Location API
+    implementation ("implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.6.0'")
+
+    implementation ("com.mapbox.navigation:android:2.10.1")
+    implementation ("com.mapbox.navigation:ui-dropin:2.10.1")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("com.google.android.gms:play-services-location:20.0.0")
+    implementation ("com.squareup.leakcanary:leakcanary-android:2.9.1")
+
+    implementation ("com.mapbox.navigationcore:ui-components:3.5.2")
+
+    testImplementation ("junit:junit:4.13.2")
+    androidTestImplementation ("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.0")
 
 
 

@@ -25,9 +25,9 @@ class SplashScreen : Fragment(R.layout.screen_splash) {
         binding.apply {
             lifecycleScope.launch {
                 delay(2000)
-                //findNavController().navigate(R.id.mapScreen)
-                val intent = Intent(requireContext(), StandardStyleActivity::class.java)
-                startActivity(intent)
+                findNavController().navigate(R.id.mapScreen)
+//                val intent = Intent(requireContext(), StandardStyleActivity::class.java)
+//                startActivity(intent)
             }
         }
 
